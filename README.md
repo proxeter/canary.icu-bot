@@ -1,4 +1,4 @@
-# news-bot
+# canary-news-bot
 
 ### Requirements
 - redis
