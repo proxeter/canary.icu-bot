@@ -1,13 +1,35 @@
 package main
 
 import (
-	"fmt"
+	"sync"
 
 	"github.com/isalikov/news-bot/feeds/iestafeta"
+	"github.com/isalikov/news-bot/feeds/russkoe105fm"
+	"github.com/isalikov/news-bot/internal/bot"
+	"github.com/isalikov/news-bot/internal/db"
 )
 
 func main() {
-	r, _ := iestafeta.GetFeed()
+	var wg sync.WaitGroup
 
-	fmt.Println(r)
+	posts := &[]db.Post{}
+
+	wg.Add(2)
+
+	go func() {
+		defer wg.Done()
+
+		feed, _ := russkoe105fm.GetFeed()
+		*posts = append(*posts, feed...)
+	}()
+
+	go func() {
+		defer wg.Done()
+
+		feed, _ := iestafeta.GetFeed()
+		*posts = append(*posts, feed...)
+	}()
+
+	wg.Wait()
+	bot.PushMessages(posts)
 }

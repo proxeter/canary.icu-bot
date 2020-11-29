@@ -1,10 +1,10 @@
 package iestafeta
 
 type post struct {
-	Link    string `xml:"link"`
-	Message string `xml:"description"`
-	Title   string `xml:"title"`
-	UID     string `xml:"guid"`
+	Description string `xml:"description"`
+	GUID        string `xml:"guid"`
+	Link        string `xml:"link"`
+	Title       string `xml:"title"`
 }
 
 type channel struct {

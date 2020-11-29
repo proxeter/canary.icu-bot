@@ -50,11 +50,11 @@ func extractPost(s string, err error) (Post, error) {
 }
 
 // GetPersistentPost return is post exist and store to redis if not
-func GetPersistentPost(k string, p Post) (post Post, isNew bool, err error) {
+func GetPersistentPost(p Post) (post Post, isNew bool, err error) {
 	config := getConnectionConfig()
 	rdb := redis.NewClient(&config)
 
-	if value, err := rdb.Get(ctx, p.UID).Result(); value != "" {
+	if value, err := rdb.Get(ctx, p.ID).Result(); value != "" {
 		d, err := extractPost(value, err)
 
 		return d, false, err
@@ -66,7 +66,7 @@ func GetPersistentPost(k string, p Post) (post Post, isNew bool, err error) {
 		return p, true, err
 	}
 
-	err = rdb.Set(ctx, k, string(s), 0).Err()
+	err = rdb.Set(ctx, p.ID, string(s), 0).Err()
 
 	return p, true, err
 }

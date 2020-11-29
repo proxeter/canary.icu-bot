@@ -1,7 +1,7 @@
-package iestafeta
+package russkoe105fm
 
 import (
-	"encoding/xml"
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"time"
@@ -9,7 +9,8 @@ import (
 	"github.com/isalikov/news-bot/internal/db"
 )
 
-const baseURL = "https://iestafeta.com/feed"
+const baseURL = "https://feeds.tildacdn.com/api/getfeed"
+const baseOrigin = "http://russkoe-105fm.ru"
 
 // GetFeed return news feed orr error
 func GetFeed() ([]db.Post, error) {
@@ -21,6 +22,16 @@ func GetFeed() ([]db.Post, error) {
 		return nil, err
 	}
 
+	q := r.URL.Query()
+	q.Add("feeduid", "988619803892")
+	q.Add("size", "20")
+	q.Add("slice", "1")
+	q.Add("sort[date]", "desc")
+
+	r.URL.RawQuery = q.Encode()
+
+	r.Header.Add("origin", baseOrigin)
+
 	client := &http.Client{Timeout: time.Second * 30}
 	resp, err := client.Do(r)
 
@@ -30,17 +41,17 @@ func GetFeed() ([]db.Post, error) {
 
 	defer resp.Body.Close()
 
-	d := &data{}
+	d := &feedResponse{}
 	f := MakeItemFactory(d)
 
-	xml.NewDecoder(resp.Body).Decode(d)
+	json.NewDecoder(resp.Body).Decode(d)
 
-	result := make([]db.Post, 0, len(d.Channel.Items))
+	result := make([]db.Post, 0, len(d.Posts))
 
-	for _, p := range d.Channel.Items {
+	for _, p := range d.Posts {
 		payload := &db.Post{}
 
-		if isNew, err := payload.Make(p.GUID, f, []byte(baseURL)); isNew && err == nil {
+		if isNew, err := payload.Make(p.UID, f, []byte(baseURL)); isNew && err == nil {
 			result = append(result, *payload)
 		}
 	}

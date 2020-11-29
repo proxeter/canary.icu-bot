@@ -4,17 +4,20 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"strconv"
 	"time"
+
+	"github.com/isalikov/news-bot/internal/db"
 )
 
 // TgConfig bot configuration
 type TgConfig struct {
-	chat string
-	key  string
+	chat     string
+	key      string
+	debounce int
 }
 
-// GetConfig return Tg config from os ENV params
-func GetConfig() TgConfig {
+func getConfig() TgConfig {
 	config := TgConfig{}
 
 	key := os.Getenv("API_KEY")
@@ -29,15 +32,24 @@ func GetConfig() TgConfig {
 		panic("Can't get CHANNEL_ID")
 	}
 
+	debounce := os.Getenv("DEBOUNCE")
+
+	if value, err := strconv.Atoi(debounce); err != nil {
+		config.debounce = value
+	} else {
+		config.debounce = 2000
+	}
+
 	config.key = key
 	config.chat = chat
 
 	return config
 }
 
-// PushMessage push message to Tg channel
-func PushMessage(message string) error {
-	config := GetConfig()
+func pushMessage(message string) error {
+	fmt.Printf("Sending: %v\n", message)
+
+	config := getConfig()
 
 	URL := fmt.Sprintf("https://api.telegram.org/bot%v/sendMessage", config.key)
 	r, err := http.NewRequest("GET", URL, nil)
@@ -62,4 +74,14 @@ func PushMessage(message string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// PushMessages push messages to Tg channel
+func PushMessages(posts *[]db.Post) {
+	config := getConfig()
+
+	for _, post := range *posts {
+		pushMessage(post.Link)
+		time.Sleep(time.Duration(config.debounce) * time.Millisecond)
+	}
 }
