@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/isalikov/news-bot/internal/db"
+	"github.com/isalikov/canary.icu-bot/internal/db"
 )
 
 // TgConfig bot configuration

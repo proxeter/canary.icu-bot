@@ -1,4 +1,4 @@
-module github.com/isalikov/news-bot
+module github.com/isalikov/canary.icu-bot
 
 go 1.15
 

@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/isalikov/news-bot/internal/db"
+	"github.com/isalikov/canary.icu-bot/internal/db"
 )
 
 const baseURL = "https://feeds.tildacdn.com/api/getfeed"

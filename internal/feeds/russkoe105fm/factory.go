@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/isalikov/news-bot/internal/db"
+	"github.com/isalikov/canary.icu-bot/internal/db"
 )
 
 func removeHTMLTag(in string) string {

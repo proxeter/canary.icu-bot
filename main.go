@@ -3,10 +3,10 @@ package main
 import (
 	"sync"
 
-	"github.com/isalikov/news-bot/feeds/iestafeta"
-	"github.com/isalikov/news-bot/feeds/russkoe105fm"
-	"github.com/isalikov/news-bot/internal/bot"
-	"github.com/isalikov/news-bot/internal/db"
+	"github.com/isalikov/canary.icu-bot/internal/bot"
+	"github.com/isalikov/canary.icu-bot/internal/db"
+	"github.com/isalikov/canary.icu-bot/internal/feeds/iestafeta"
+	"github.com/isalikov/canary.icu-bot/internal/feeds/russkoe105fm"
 )
 
 func main() {
