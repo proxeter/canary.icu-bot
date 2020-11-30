@@ -2,6 +2,7 @@ package iestafeta
 
 import (
 	"encoding/xml"
+	"io/ioutil"
 	"net/http"
 	"time"
 
@@ -30,7 +31,9 @@ func GetFeed() ([]db.Post, error) {
 	d := &data{}
 	f := MakeItemFactory(d)
 
-	xml.NewDecoder(resp.Body).Decode(d)
+	bytes, _ := ioutil.ReadAll(resp.Body)
+
+	xml.Unmarshal(bytes, d)
 
 	result := make([]db.Post, 0, len(d.Channel.Items))
 

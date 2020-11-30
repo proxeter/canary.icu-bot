@@ -41,7 +41,7 @@ func MakeItemFactory(d *data) func(id string) (db.Post, error) {
 		hash := md5.Sum([]byte(*&payload.GUID))
 
 		result.Link = *&payload.Link
-		result.Message = *&payload.Description
+		result.Message = *&payload.Content.Data
 		result.Title = *&payload.Title
 		result.PreviewImage = previewImage
 		result.ID = fmt.Sprintf("%x", hash)
