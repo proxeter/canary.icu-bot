@@ -3,15 +3,6 @@ type: docker
 name: base
 
 steps:
-  - name: lint
-    image: golang
-    commands:
-      - go get github.com/golang/lint/golint
-      - make lint
-    when:
-      event:
-        - push
-
   - name: buld
     image: golang
     commands:
