@@ -60,13 +60,13 @@ func GetPersistentPost(p Post) (post Post, isNew bool, err error) {
 		return d, false, err
 	}
 
-	_, err = json.Marshal(&p)
+	s, err := json.Marshal(&p)
 
 	if err != nil {
 		return p, true, err
 	}
 
-	// err = rdb.Set(ctx, p.ID, string(s), 0).Err()
+	err = rdb.Set(ctx, p.ID, string(s), 0).Err()
 
 	return p, true, err
 }
