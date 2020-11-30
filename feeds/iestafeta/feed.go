@@ -2,7 +2,6 @@ package iestafeta
 
 import (
 	"encoding/xml"
-	"fmt"
 	"net/http"
 	"time"
 
@@ -13,8 +12,6 @@ const baseURL = "https://iestafeta.com/feed"
 
 // GetFeed return news feed orr error
 func GetFeed() ([]db.Post, error) {
-	fmt.Printf("Start fetching from %v\n", baseURL)
-
 	r, err := http.NewRequest("GET", baseURL, nil)
 
 	if err != nil {

@@ -4,6 +4,7 @@ type post struct {
 	Description string `xml:"description"`
 	GUID        string `xml:"guid"`
 	Link        string `xml:"link"`
+	PubDate     string `xml:"pubDate"`
 	Title       string `xml:"title"`
 }
 

@@ -12,7 +12,7 @@ import (
 func main() {
 	var wg sync.WaitGroup
 
-	posts := &[]db.Post{}
+	posts := make([]db.Post, 0)
 
 	wg.Add(2)
 
@@ -20,14 +20,14 @@ func main() {
 		defer wg.Done()
 
 		feed, _ := russkoe105fm.GetFeed()
-		*posts = append(*posts, feed...)
+		posts = append(posts, feed...)
 	}()
 
 	go func() {
 		defer wg.Done()
 
 		feed, _ := iestafeta.GetFeed()
-		*posts = append(*posts, feed...)
+		posts = append(posts, feed...)
 	}()
 
 	wg.Wait()

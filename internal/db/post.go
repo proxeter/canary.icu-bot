@@ -10,11 +10,12 @@ func (p *Post) Make(id string, f Factory, bucket []byte) (bool, error) {
 
 	d, isNew, err := GetPersistentPost(r)
 
+	p.ID = d.ID
 	p.Link = d.Link
 	p.Message = d.Message
 	p.PreviewImage = d.PreviewImage
+	p.Timestamp = d.Timestamp
 	p.Title = d.Title
-	p.ID = d.ID
 
 	return isNew, nil
 }

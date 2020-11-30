@@ -2,7 +2,6 @@ package russkoe105fm
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"time"
 
@@ -14,8 +13,6 @@ const baseOrigin = "http://russkoe-105fm.ru"
 
 // GetFeed return news feed orr error
 func GetFeed() ([]db.Post, error) {
-	fmt.Printf("Start fetching from %v\n", baseURL)
-
 	r, err := http.NewRequest("GET", baseURL, nil)
 
 	if err != nil {

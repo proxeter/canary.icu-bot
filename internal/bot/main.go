@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"sort"
 	"strconv"
 	"time"
 
@@ -77,10 +78,14 @@ func pushMessage(message string) error {
 }
 
 // PushMessages push messages to Tg channel
-func PushMessages(posts *[]db.Post) {
+func PushMessages(posts []db.Post) {
 	config := getConfig()
 
-	for _, post := range *posts {
+	sort.SliceStable(posts, func(a, b int) bool {
+		return posts[a].Timestamp < posts[b].Timestamp
+	})
+
+	for _, post := range posts {
 		pushMessage(post.Link)
 		time.Sleep(time.Duration(config.debounce) * time.Millisecond)
 	}

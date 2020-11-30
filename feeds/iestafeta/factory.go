@@ -3,6 +3,7 @@ package iestafeta
 import (
 	"crypto/md5"
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/isalikov/news-bot/internal/db"
@@ -31,6 +32,12 @@ func MakeItemFactory(d *data) func(id string) (db.Post, error) {
 			result.PreviewImage = ""
 		}
 
+		timestamp, err := time.Parse("Mon, 02 Jan 2006 15:04:05 -0700", *&payload.PubDate)
+
+		if err != nil {
+			log.Fatal(err)
+		}
+
 		hash := md5.Sum([]byte(*&payload.GUID))
 
 		result.Link = *&payload.Link
@@ -38,6 +45,7 @@ func MakeItemFactory(d *data) func(id string) (db.Post, error) {
 		result.Title = *&payload.Title
 		result.PreviewImage = previewImage
 		result.ID = fmt.Sprintf("%x", hash)
+		result.Timestamp = timestamp.Unix()
 
 		time.Sleep(time.Millisecond * 50)
 

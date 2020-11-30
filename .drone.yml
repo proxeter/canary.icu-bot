@@ -1,0 +1,10 @@
+kind: pipeline
+type: docker
+name: base
+
+steps:
+  - name: lint
+    image: cytopia/golint
+    pull: always
+    commands:
+      - make lint

@@ -51,6 +51,12 @@ func MakeItemFactory(d *feedResponse) func(id string) (db.Post, error) {
 			log.Fatal(err)
 		}
 
+		timestamp, err := time.Parse("2006-01-02 15:04:05", meta.Published)
+
+		if err != nil {
+			log.Fatal(err)
+		}
+
 		hash := md5.Sum([]byte(*&payload.UID))
 
 		result.Link = *&payload.URL
@@ -58,6 +64,7 @@ func MakeItemFactory(d *feedResponse) func(id string) (db.Post, error) {
 		result.PreviewImage = meta.Image
 		result.Title = *&payload.Title
 		result.ID = fmt.Sprintf("%x", hash)
+		result.Timestamp = timestamp.Unix()
 
 		time.Sleep(time.Millisecond * 50)
 

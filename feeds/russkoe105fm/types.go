@@ -11,8 +11,9 @@ type feedResponse struct {
 }
 
 type postItem struct {
-	Image string `json:"image"`
-	Text  string `json:"text"`
+	Image     string `json:"image"`
+	Published string `json:"published"`
+	Text      string `json:"text"`
 }
 
 type postResponse struct {
