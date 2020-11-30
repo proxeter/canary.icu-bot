@@ -3,10 +3,10 @@ type: docker
 name: base
 
 steps:
-  - name: buld
+  - name: build
     image: golang
     commands:
-      - make buld
+      - make build
     when:
       event:
         - push
