@@ -2,6 +2,7 @@ package iestafeta
 
 type post struct {
 	Description string `xml:"description"`
+	Content     string `xml:"content:encoded:"`
 	GUID        string `xml:"guid"`
 	Link        string `xml:"link"`
 	PubDate     string `xml:"pubDate"`
