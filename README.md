@@ -1,4 +1,8 @@
+[![Build Status](https://cloud.drone.io/api/badges/isalikov/canary-news-bot/status.svg)](https://cloud.drone.io/isalikov/canary-news-bot)
+
 # canary-news-bot
+
+Canarian news bot
 
 ### Requirements
 - redis
@@ -24,3 +28,6 @@ docker run --rm --name canary-news-bot \
     iknpx/canary-news-bot
 ```
 
+### Feeds
+- [iestafeta.com](https://iestafeta.com)
+- [russkoe-105fm.ru](http://russkoe-105fm.ru)
