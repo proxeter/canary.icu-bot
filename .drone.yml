@@ -6,6 +6,7 @@ steps:
   - name: lint
     image: golang
     commands:
+      - go get github.com/golang/lint/golint
       - make lint
     when:
       event:
