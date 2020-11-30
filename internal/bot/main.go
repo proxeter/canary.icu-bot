@@ -86,7 +86,7 @@ func PushMessages(posts []db.Post) {
 	})
 
 	for _, post := range posts {
-		message := fmt.Sprintf("http://canary.icu/%v", post.ID)
+		message := fmt.Sprintf("https://canary.icu/v/%v", post.ID)
 
 		pushMessage(message)
 		time.Sleep(time.Duration(config.debounce) * time.Millisecond)
