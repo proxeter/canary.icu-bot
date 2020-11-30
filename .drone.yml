@@ -4,7 +4,30 @@ name: base
 
 steps:
   - name: lint
-    image: cytopia/golint
-    pull: always
+    image: golang
     commands:
       - make lint
+    when:
+      event:
+        - push
+
+  - name: buld
+    image: golang
+    commands:
+      - make buld
+    when:
+      event:
+        - push
+
+  - name: image
+    image: plugins/docker
+    pull: always
+    settings:
+      repo: iknpx/canary-news-bot
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+    when:
+      event:
+        - push
