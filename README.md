@@ -28,6 +28,6 @@ docker run --rm --name canary.icu-bot \
     iknpx/canary.icu-bot
 ```
 
-### Feeds
+### Used Feeds
 - [iestafeta.com](https://iestafeta.com)
 - [russkoe-105fm.ru](http://russkoe-105fm.ru)
