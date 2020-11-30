@@ -15,7 +15,7 @@ steps:
     image: plugins/docker
     pull: always
     settings:
-      repo: iknpx/canary-news-bot
+      repo: iknpx/canary.icu-bot
       username:
         from_secret: docker_username
       password:
