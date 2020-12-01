@@ -61,7 +61,7 @@ func MakeItemFactory() func(id string) (db.Post, error) {
 		article.Find("p").Each(func(i int, c *goquery.Selection) {
 			if i == 0 {
 				if src, ok := c.Find("img").Attr("src"); ok {
-					img = fmt.Sprintf("https://espanarusa.com/%v", src)
+					img = fmt.Sprintf("https://espanarusa.com%v", src)
 				}
 			} else {
 				if c, err := c.Html(); err == nil {
