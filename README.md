@@ -31,3 +31,4 @@ docker run --rm --name canary.icu-bot \
 ### Used Feeds
 - [iestafeta.com](https://iestafeta.com)
 - [russkoe-105fm.ru](http://russkoe-105fm.ru)
+- [espanarusa.com](https://espanarusa.com)

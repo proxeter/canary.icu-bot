@@ -5,6 +5,7 @@ import (
 
 	"github.com/isalikov/canary.icu-bot/internal/bot"
 	"github.com/isalikov/canary.icu-bot/internal/db"
+	"github.com/isalikov/canary.icu-bot/internal/feeds/espanarusa"
 	"github.com/isalikov/canary.icu-bot/internal/feeds/iestafeta"
 	"github.com/isalikov/canary.icu-bot/internal/feeds/russkoe105fm"
 )
@@ -14,7 +15,7 @@ func main() {
 
 	posts := make([]db.Post, 0)
 
-	wg.Add(2)
+	wg.Add(3)
 
 	go func() {
 		defer wg.Done()
@@ -27,6 +28,13 @@ func main() {
 		defer wg.Done()
 
 		feed, _ := iestafeta.GetFeed()
+		posts = append(posts, feed...)
+	}()
+
+	go func() {
+		defer wg.Done()
+
+		feed, _ := espanarusa.GetFeed()
 		posts = append(posts, feed...)
 	}()
 
