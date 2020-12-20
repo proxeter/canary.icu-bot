@@ -1,7 +1,7 @@
 FROM golang:1.15.5
 
 WORKDIR /usr/app
-COPY . .
+COPY ../.. .
 
 RUN make build
 
